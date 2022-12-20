@@ -11,13 +11,17 @@ const weatherDataType = [
   }
 ]
 
+
 function App() {
+  const [weatherData, setWeatherData] = useState(weatherDataType);
   useEffect(() => {
-    fetch("https://localhost:7124/WeatherForecast")
+    // fetch("https://localhost:7124/WeatherForecast")
+    fetch("https://rijan-react-demo-api.azurewebsites.net/WeatherForecast")
       .then(res => res.json())
       .then(
         (result) => {
           console.log(result);
+          setWeatherData(result);
         }
       );
   }, []);
@@ -29,14 +33,17 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <table>
+          <thead>
+            Weathjer Data from azure api
+          </thead>
+          <tbody>
+            <tr>{weatherData[0].date}</tr>
+            <tr>{weatherData[0].temperatureC}</tr>
+            <tr>{weatherData[0].temperatureF}</tr>
+            <tr>{weatherData[0].summary}</tr>
+          </tbody>
+        </table>
       </header>
     </div>
   );
